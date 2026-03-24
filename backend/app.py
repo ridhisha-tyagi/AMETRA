@@ -1,10 +1,10 @@
 from flask import Flask, render_template, request, send_from_directory
 import os
 
-from charts.chart_generator import generate_chart_data
-from engine.scoring import calculate_pii
-from engine.archetypes import generate_archetypes
-from pdf_generator import generate_pdf
+from backend.charts.chart_generator import generate_chart_data
+from backend.engine.scoring import calculate_pii
+from backend.engine.archetypes import generate_archetypes
+from backend.pdf_generator import generate_pdf
 
 
 app = Flask(__name__)
