@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<title>Ametra Report</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
+
+<!-- Calendar + Time Picker -->
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
+<!-- Dropdown Search -->
+
+<link href="https://cdn.jsdelivr.net/npm/tom-select/dist/css/tom-select.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<section class="generate-section">
+
+<div class="generate-wrapper">
+
+<div class="generate-visual">
+<img src="{{ url_for('static', filename='mandala.png') }}" class="generate-mandala">
+</div>
+
+<div class="generate-form-card">
+
+<h2>Step 1 to Self Discovery</h2>
+
+<p class="generate-subtext">
+A personalised psychological profile revealing how you think, feel, and grow — built from your birth chart.
+</p>
+
+<form action="/generate" method="POST">
+
+<input type="text" name="name" placeholder="Full Name" required>
+
+<input type="text" id="date" name="date" placeholder="Select Birth Date" required>
+
+<input type="text" id="time" name="time" placeholder="Select Birth Time" required>
+
+<select id="place" name="place" placeholder="Search Birth Location"></select>
+
+<input type="text" id="lat" name="lat" placeholder="Latitude" readonly>
+
+<input type="text" id="lon" name="lon" placeholder="Longitude" readonly>
+
+<button type="submit" class="primary-cta">
+Reveal Your Archetype
+</button>
+
+<p class="generate-note">
+Your profile is uniquely calculated from your birth details.
+</p>
+
+</form>
+
+</div>
+
+</div>
+
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/tom-select/dist/js/tom-select.complete.min.js"></script>
+
+<script>
+
+/* Calendar */
+
+flatpickr("#date", {
+dateFormat: "Y-m-d",
+});
+
+/* Time picker with dropdown */
+
+flatpickr("#time", {
+enableTime: true,
+noCalendar: true,
+dateFormat: "H:i",
+time_24hr: false
+});
+
+/* Location search */
+
+const select = new TomSelect("#place",{
+valueField: "display_name",
+labelField: "display_name",
+searchField: "display_name",
+load: async function(query, callback){
+
+if(!query.length) return callback();
+
+const res = await fetch(
+`https://nominatim.openstreetmap.org/search?format=json&q=${query}`
+);
+
+const data = await res.json();
+
+callback(data);
+
+},
+onChange:function(value){
+
+fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${value}`)
+.then(res => res.json())
+.then(data=>{
+if(data.length){
+
+document.getElementById("lat").value = data[0].lat;
+document.getElementById("lon").value = data[0].lon;
+
+}
+})
+
+}
+});
+
+</script>
+
+</body>
+</html>

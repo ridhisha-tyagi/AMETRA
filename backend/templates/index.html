@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<title>Ametra</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
+
+</head>
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+
+<body>
+
+<!-- NAVBAR -->
+
+<nav class="navbar">
+
+<div class="nav-logo">AMETRA</div>
+
+<ul class="nav-links">
+<li><a href="/about">About</a></li>
+<li><a href="/blog">Blog</a></li>
+<li><a href="/generate">Generate Profile</a></li>
+</ul>
+
+</nav>
+
+
+<!-- HERO / INTRO -->
+
+<section class="hero">
+
+<div class="hero-container">
+
+<section class="cta-section">
+
+</section>
+
+<!-- LEFT SIDE -->
+
+<div class="hero-text">
+
+<h1 class="welcome-title">
+Who Are You — Really?
+</h1>
+
+<p class="slogan">
+Step 1 to Self Discovery
+</p>
+
+<p class="hero-sub">
+Ametra reveals how your mind actually works — your emotional patterns,
+decision-making systems, and inner dynamics — through your birth chart.
+</p>
+
+<a href="/generate">
+<button class="reveal-btn">
+Start Your Profile
+</button>
+</a>
+
+</div>
+
+
+<!-- RIGHT SIDE -->
+
+<div class="hero-visual">
+
+<img 
+src="{{ url_for('static', filename='ametra-logo.png') }}" 
+class="ametra-logo"
+alt="Ametra Logo">
+
+</div>
+
+</div>
+
+</section>
+
+<!-- WHAT IS AMETRA -->
+
+<section class="about-ametra">
+
+<h2>What is Ametra</h2>
+
+<p>
+Ametra interprets the birth chart as a system of psychological forces.
+Each placement reflects a pattern — not of events, but of perception,
+reaction, and internal experience.
+</p>
+
+<p>
+Instead of predicting the future, Ametra maps how your identity,
+emotions, thinking, and behavior interact beneath the surface.
+It shows you the structure behind your patterns.
+</p>
+
+<!-- WHAT ARE AMETRA ARCHETYPES -->
+
+<section class="archetypes-intro">
+
+<h2>What Are Ametra Archetypes?</h2>
+
+<p>
+<p>
+Ametra archetypes are recurring psychological patterns that shape how you
+experience yourself and the world around you.
+</p> 
+Each archetype reflects a dominant way a person
+interprets experience, responds to situations, and interacts with others.
+</p>
+
+<p>
+They don’t define who you are — they reveal how your inner systems operate,
+especially under pressure, growth, and change.
+</p>
+
+</section>
+
+<!-- ARCHETYPES -->
+
+<section class="archetypes-section">
+
+<h2 class="section-title">Archetypes</h2>
+
+<div class="archetype-wrapper">
+
+<button class="slide-arrow" onclick="prevArchetype()">❮</button>
+
+<div class="archetype-card">
+
+<div class="archetype-symbol" id="archetype-symbol">☼</div>
+
+<h3 id="archetype-title">The Luminary</h3>
+
+<p id="archetype-desc">
+A presence that naturally draws attention and influences the emotional tone of environments.
+</p>
+
+</div>
+
+<button class="slide-arrow" onclick="nextArchetype()">❯</button>
+
+</div>
+
+</section>
+
+<!-- KNOW YOUR ARCHETYPE -->
+
+<section class="reveal-archetype">
+
+<h2>Discover Your Core Archetype</h2>
+
+<p>
+Generate your Ametra Profile to uncover the archetype driving your
+patterns, reactions, and inner tendencies.
+</p>
+
+<a href="/generate">
+
+<button class="reveal-btn">
+Reveal Your Archetype
+</button>
+
+</a>
+
+</section>
+<!-- REPORT PREVIEW -->
+
+<section class="report-preview">
+
+<h2>Preview Your Psychological Profile</h2>
+
+<p>
+This is not a summary — it’s a deep breakdown of your identity,
+emotional patterns, and internal systems.
+</p>
+
+<p>
+
+Your Ametra Profile is a detailed psychological report generated
+from your birth chart — revealing how your systems interact,
+where your patterns come from, and how they evolve.
+
+</p>
+
+<div class="report-pages">
+
+<img src="{{ url_for('static', filename='report1.png') }}" alt="Ametra Report Preview">
+
+<img src="{{ url_for('static', filename='report2.png') }}" alt="Ametra Report Preview">
+
+<img src="{{ url_for('static', filename='report3.png') }}" alt="Ametra Report Preview">
+
+</div>
+
+</section>
+
+<!-- BLOG PREVIEW -->
+
+<section class="blog-preview">
+
+<h2>Insights from Ametra</h2>
+
+<p class="blog-intro">
+Explore how psychological patterns emerge through astrology —
+and how different systems influence emotion, behavior, and perception.
+</p>
+
+<div class="blog-grid">
+
+<div class="blog-card">
+<h3>What Your Moon Sign Reveals About Emotional Patterns</h3>
+<p>Understanding how lunar placements influence emotional responses and inner security.</p>
+<a href="/blog">Read Article →</a>
+</div>
+
+<div class="blog-card">
+<h3>The Psychology Behind Your Mars Placement</h3>
+<p>How action systems shape motivation, conflict, and decision-making.</p>
+<a href="/blog">Read Article →</a>
+</div>
+
+<div class="blog-card">
+<h3>Why Archetypes Appear in the Birth Chart</h3>
+<p>A deeper look at how symbolic patterns emerge in psychological astrology.</p>
+<a href="/blog">Read Article →</a>
+</div>
+
+</div>
+
+</section>
+
+<!-- FAQ -->
+
+<section class="faq-section">
+
+<h2>Frequently Asked Questions</h2>
+
+<div class="faq-item">
+
+<h3>Is Ametra traditional astrology?</h3>
+
+<p>
+No. Ametra does not predict events. It interprets the birth chart
+as a system of psychological patterns — how you think, feel, and respond.
+</p>
+
+</div>
+
+<div class="faq-item">
+
+<h3>What information do I need?</h3>
+
+<p>
+You only need your birth date, birth time, and birth location to
+generate your Ametra Profile.
+</p>
+
+</div>
+
+<div class="faq-item">
+
+<h3>What will my Ametra Profile show?</h3>
+
+<p>
+Your profile includes your core archetype, growth archetype,
+psychological system intensity, and a detailed interpretation
+of the internal dynamics within your chart.
+</p>
+
+</div>
+
+<div class="faq-item">
+
+<h3>Is the report personalized?</h3>
+
+<p>
+Yes. Each Ametra Profile is generated individually using your
+birth chart calculations.
+</p>
+
+</div>
+
+</section>
+
+</body>
+
+</html>

@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<title>Your Ametra Profile</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
+
+<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+
+<style>
+
+.report-preview{
+max-width:900px;
+margin:60px auto;
+}
+
+.pdf-frame{
+width:100%;
+height:1200px;
+border:1px solid #FFBF00;
+background:black;
+}
+
+/* LOADING SCREEN */
+
+#loading-screen{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:#000;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+z-index:9999;
+color:#F1E5AC;
+font-family:'Playfair Display', serif;
+}
+
+.loader{
+width:60px;
+height:60px;
+border:3px solid #333;
+border-top:3px solid #FFBF00;
+border-radius:50%;
+animation:spin 1s linear infinite;
+margin-bottom:20px;
+}
+
+@keyframes spin{
+0%{transform:rotate(0deg);}
+100%{transform:rotate(360deg);}
+}
+
+#result-content{
+opacity:0;
+transition:opacity 1.2s ease;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- LOADING -->
+<div id="loading-screen">
+    <div class="loader"></div>
+    <p>Decoding your psychological map...</p>
+</div>
+
+<!-- RESULT -->
+<div id="result-content">
+
+<section class="result-page">
+
+<h1 class="result-title">Your Ametra Profile</h1>
+
+<div class="archetype-card">
+
+<div id="archetype-symbol" class="archetype-symbol">
+    {{ archetype_symbol }}
+</div>
+
+<h2 id="archetype-title" data-text="{{ archetype_title }}">
+    {{ archetype_title }}
+</h2>
+
+<p>{{ archetype_desc }}</p>
+
+</div>
+
+<div class="soft-unlock">
+
+<p>
+Unlock your full psychological profile — including all systems,
+growth patterns, and your complete Ametra map.
+</p>
+
+<div class="cta-section">
+
+    <h2 class="cta-heading">Step 1 to Self Discovery</h2>
+
+    <p class="cta-subtext">
+        A personalised psychological profile revealing how you think, feel, and grow — built from your birth chart.
+    </p>
+
+</div>
+
+<div class="soft-buttons">
+
+<button onclick="payNow()" class="primary-cta">
+Unlock Your Full Profile — ₹99
+</button>
+
+<button onclick="watchAds()" class="secondary-cta-btn">
+Prefer not to pay? Unlock with 3 short ads
+</button>
+
+<p id="ad-progress" style="font-size:12px; color:#bfae7c; margin-top:10px;"></p>
+</div>
+
+<form id="download-form" action="/download" method="POST">
+
+<input type="hidden" name="unlocked" id="unlocked-input" value="false">
+
+<input type="hidden" name="name" value="{{ birth_data.name }}">
+<input type="hidden" name="date" value="{{ birth_data.date }}">
+<input type="hidden" name="time" value="{{ birth_data.time }}">
+<input type="hidden" name="place" value="{{ birth_data.place }}">
+<input type="hidden" name="lat" value="{{ birth_data.lat }}">
+<input type="hidden" name="lon" value="{{ birth_data.lon }}">
+
+<button type="button" class="download-btn download-trigger" style="display:none;">
+Download Your Full Report
+</button>
+
+</form>
+
+<h2 class="systems-heading">Dominant Psychological Systems</h2>
+
+<div class="systems-grid">
+{% for system in systems %}
+<div class="system-card">{{ system }}</div>
+{% endfor %}
+</div>
+
+<button class="download-btn" id="share-download" style="display:none;">
+Download Share Card
+</button>
+
+<div class="report-preview">
+<iframe src="{{ preview_pdf_url }}" class="pdf-frame"></iframe>
+</div>
+
+<div class="unlock-section" id="unlock-section">
+
+<h2>Unlock Your Full Ametra Profile</h2>
+
+<p>
+Your full report includes all psychological systems,
+growth patterns, archetypes, and your complete Ametra psychological map.
+</p>
+
+<div class="cta-section">
+
+    <h2 class="cta-heading">Step 1 to Self Discovery</h2>
+
+    <p class="cta-subtext">
+        A personalised psychological profile revealing how you think, feel, and grow — built from your birth chart.
+    </p>
+
+</div>
+
+<div class="unlock-buttons">
+
+<button onclick="payNow()" class="primary-cta">
+Unlock Your Full Profile — ₹99
+</button>
+
+</div>
+
+<button type="button" class="download-btn download-trigger" style="display:none;">
+Download Your Full Report
+</button>
+
+<div class="ametra-note">
+
+<h3>How Ametra Works</h3>
+
+<p>
+Ametra is a psychological interpretation system built using astrological structure.
+It does not predict events or define identity. Instead, it translates chart patterns
+into psychological tendencies — how you process emotion, make decisions, and interact
+with your internal systems.
+</p>
+
+<p>
+The interpretations in this report are generated through structured symbolic mapping,
+not subjective judgment. They are designed to offer insight, not certainty.
+</p>
+
+<p>
+This report is not a diagnosis, and it does not replace professional psychological or medical guidance.
+It is a tool for reflection — to help you observe patterns, not to limit who you can become.
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+</div>
+
+<script>
+
+let adCount = 0;
+let unlocked = false;
+
+function watchAds(){
+    if(unlocked) return;
+
+    adCount++;
+
+    document.getElementById("ad-progress").innerText =
+        "Ad " + adCount + " of 3 completed";
+
+    if(adCount === 3){
+        document.getElementById("ad-progress").innerText =
+            "Unlocked! Your report is ready 💛";
+        unlock();
+    }
+}
+
+function payNow(){
+    alert("Payment successful.");
+    unlock();
+}
+
+function unlock(){
+    unlocked = true;
+
+    const input = document.getElementById("unlocked-input");
+    if(input) input.value = "true";
+
+    document.querySelectorAll(".download-trigger").forEach(btn => {
+        btn.style.display = "inline-block";
+    });
+}
+
+function unlockShare(){
+    alert("Watching 2 ads...");
+    document.getElementById("share-download").style.display = "inline-block";
+}
+
+document.getElementById("share-download")?.addEventListener("click", function(){
+
+    const card = document.querySelector(".share-card-inner");
+
+    html2canvas(card).then(canvas => {
+        const link = document.createElement("a");
+        link.download = "ametra_archetype.png";
+        link.href = canvas.toDataURL();
+        link.click();
+    });
+
+});
+
+document.querySelectorAll(".download-trigger").forEach(btn => {
+    btn.addEventListener("click", function(){
+        if(!unlocked){
+            alert("Please unlock first 💛");
+            return;
+        }
+        document.getElementById("download-form").submit();
+    });
+});
+
+window.onload = function(){
+
+    setTimeout(() => {
+
+        const loader = document.getElementById("loading-screen");
+        if(loader) loader.style.display = "none";
+
+        const result = document.getElementById("result-content");
+        if(result){
+            result.style.display = "block";
+            result.style.opacity = "1";
+        }
+
+    }, 1500);
+};
+
+</script>
+
+</body>
+</html>
