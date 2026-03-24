@@ -240,8 +240,6 @@ pkginfo @ file:///C:/b/abs_79p91g_cie/croot/pkginfo_1743184772345/work
 platformdirs @ file:///C:/b/abs_ddh15014or/croot/platformdirs_1744273060660/work
 plotly @ file:///C:/b/abs_8926yyyylu/croot/plotly_1756453681452/work
 pluggy @ file:///C:/b/abs_dfec_m79vo/croot/pluggy_1733170145382/work
-# Editable install with no version control (prepstack==0.1.0)
--e c:\users\lenovo\onedrive\desktop\prepstack
 prometheus_client @ file:///C:/b/abs_8b175q_ub8/croot/prometheus_client_1744271638821/work
 prompt_toolkit @ file:///C:/miniconda3/conda-bld/prompt-toolkit_1760375674913/work
 propcache @ file:///C:/b/abs_57780xb0gk/croot/propcache_1744012740137/work
