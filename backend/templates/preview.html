@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-
+<link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
 <meta charset="UTF-8">
 <title>Your Ametra Profile</title>
 
@@ -120,9 +120,8 @@ growth patterns, and your complete Ametra map.
 Unlock Your Full Profile — ₹99
 </button>
 
-<button onclick="watchAds()" class="secondary-cta-btn">
-Prefer not to pay? Unlock with 3 short ads
-</button>
+<button class="ads-btn" onclick="startAdUnlock()">Prefer not to pay? Unlock with 3 short ads</button>
+
 
 <p id="ad-progress" style="font-size:12px; color:#bfae7c; margin-top:10px;"></p>
 </div>
@@ -221,6 +220,46 @@ It is a tool for reflection — to help you observe patterns, not to limit who y
 </div>
 
 <script>
+
+let adStep = 0;
+
+function startAdUnlock(){
+
+    const btn = document.querySelector(".ads-btn");
+
+    btn.disabled = true;
+
+    runAdStep();
+}
+
+function runAdStep(){
+
+    const btn = document.querySelector(".ads-btn");
+
+    adStep++;
+
+    btn.innerText = `Watching Ad ${adStep} of 3...`;
+
+    setTimeout(() => {
+
+        if(adStep < 3){
+            runAdStep();
+        } else {
+            finishAdUnlock();
+        }
+
+    }, 10000); // 10 sec per ad
+}
+
+function finishAdUnlock(){
+
+    const btn = document.querySelector(".ads-btn");
+
+    btn.innerText = "Unlocked ✔";
+
+    unlock(); // YOUR EXISTING FUNCTION
+
+}
 
 let adCount = 0;
 let unlocked = false;
