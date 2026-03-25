@@ -1,5 +1,5 @@
-from astrology.planet_profiles import PLANET_PROFILES
-from astrology.planet_profiles import get_profile
+from backend.astrology.planet_profiles import PLANET_PROFILES
+from backend.astrology.planet_profiles import get_profile
 
 def get_intensity_label(score):
 

@@ -1,7 +1,7 @@
-from engine.scoring import calculate_pii
-from engine.report_builder import build_report
-from charts.chart_generator import generate_chart_data
-from pdf.pdf_generator import generate_pdf
+from backend.engine.scoring import calculate_pii
+from backend.engine.report_builder import build_report
+from backend.charts.chart_generator import generate_chart_data
+from backend.pdf.pdf_generator import generate_pdf
 
 
 def generate_report(birth_data):

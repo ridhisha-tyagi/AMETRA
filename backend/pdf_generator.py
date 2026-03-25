@@ -16,8 +16,8 @@ from reportlab.lib.colors import HexColor
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.lib import colors
-from engine.interpretation import generate_planet_section
-from engine.interpretation import SYSTEM_NAMES
+from backend.engine.interpretation import generate_planet_section
+from backend.engine.interpretation import SYSTEM_NAMES
 
 import os
 import datetime

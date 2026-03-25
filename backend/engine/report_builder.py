@@ -1,6 +1,6 @@
-from engine.interpretation import generate_planet_section
-from engine.archetypes import generate_archetypes
-from engine.archetype_section import build_archetype_section
+from backend.engine.interpretation import generate_planet_section
+from backend.engine.archetypes import generate_archetypes
+from backend.engine.archetype_section import build_archetype_section
 
 
 PLANET_ORDER = [
