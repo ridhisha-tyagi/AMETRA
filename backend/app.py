@@ -93,7 +93,7 @@ def generate():
     # -----------------------------
     # SAVE TO DATABASE (🔥 NOW SAFE)
     # -----------------------------
-    from database import get_connection
+    from backend.database import get_connection
 
     conn = get_connection()
     cursor = conn.cursor()
