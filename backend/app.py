@@ -169,7 +169,7 @@ def serve_pdf(filename):
 def download():
 
     from flask import session
-    from database import get_connection
+    from backend.database import get_connection
 
     # 🔒 check unlock
     if request.form.get("unlocked") != "true":
